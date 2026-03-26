@@ -5,6 +5,7 @@ import { NotificationBell } from "@/components/NotificationBell";
 import { TrialCountdown } from "@/components/TrialCountdown";
 import { SoftphoneWidget } from "@/components/telephony/SoftphoneWidget";
 import { AgentStatusBar } from "@/components/telephony/AgentStatusBar";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Menu } from "lucide-react";
 import { businessNavGroups, adminNavGroups } from "./nav-config";
 
@@ -31,6 +32,7 @@ export const DashboardHeader = ({ onMenuClick }: DashboardHeaderProps) => {
         <AgentStatusBar />
       </div>
       <div className="ml-auto flex items-center gap-2">
+        <LanguageSwitcher />
         <TrialCountdown />
         <SoftphoneWidget />
         <NotificationBell />
