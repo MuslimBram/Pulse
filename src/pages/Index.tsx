@@ -1,9 +1,11 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { AIChatWidget } from "@/components/AIChatWidget";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useMonetizationCatalog } from "@/hooks/useMonetizationCatalog";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
@@ -33,6 +35,7 @@ const Index = () => {
   const { user, loading } = useAuth();
   const { plans } = useMonetizationCatalog();
   const scrollRef = useScrollAnimation();
+  const { t } = useTranslation();
 
   if (loading) {
     return (
@@ -58,14 +61,15 @@ const Index = () => {
             <span className="text-lg font-bold text-foreground">Pulse AI</span>
           </div>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <Link to="/pricing">
-              <Button variant="ghost" size="sm">Pricing</Button>
+              <Button variant="ghost" size="sm">{t("nav.pricing")}</Button>
             </Link>
             <Link to="/login">
-              <Button variant="ghost" size="sm">Sign In</Button>
+              <Button variant="ghost" size="sm">{t("nav.login")}</Button>
             </Link>
             <Link to="/register">
-              <Button size="sm">Get Started</Button>
+              <Button size="sm">{t("nav.register")}</Button>
             </Link>
           </div>
         </div>
@@ -74,25 +78,26 @@ const Index = () => {
       <main>
         {/* Hero */}
         <section className="container mx-auto px-4 py-20 text-center">
-          <Badge variant="secondary" className="mb-4 animate-fade-in-up">AI-Powered Lead Discovery</Badge>
+          <Badge variant="secondary" className="mb-4 animate-fade-in-up">{t("landing.hero_badge")}</Badge>
           <h1 className="mx-auto mb-4 max-w-4xl text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl animate-fade-in-up" style={{ animationDelay: "100ms" }}>
-            Turn Every Conversation Into a Business Opportunity
+            {t("landing.hero_title_1")}{" "}
+            <span className="text-primary">{t("landing.hero_title_2")}</span>
           </h1>
           <p className="mx-auto mb-8 max-w-xl text-lg text-muted-foreground animate-fade-in-up" style={{ animationDelay: "200ms" }}>
-            Monitor channels, detect intent with AI, and respond instantly. All from one unified platform.
+            {t("landing.hero_desc")}
           </p>
           <div className="mb-4 flex items-center justify-center gap-3 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
             <Link to="/register">
               <Button size="lg" className="hover-lift">
-                Start Free Trial <ArrowRight className="ml-1 h-4 w-4" />
+                {t("landing.start_free")} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
             <Link to="/pricing">
-              <Button variant="outline" size="lg" className="hover-lift">View Pricing</Button>
+              <Button variant="outline" size="lg" className="hover-lift">{t("landing.see_pricing")}</Button>
             </Link>
           </div>
           <p className="text-xs text-muted-foreground animate-fade-in-up" style={{ animationDelay: "400ms" }}>
-            No credit card required · 7-day free trial
+            {t("landing.trusted_by")}
           </p>
         </section>
 
