@@ -136,17 +136,17 @@ const Index = () => {
         {/* Features Grid */}
         <section className="container mx-auto px-4 py-16">
           <div className="mb-12 text-center animate-on-scroll">
-            <h2 className="mb-2 text-3xl font-bold text-foreground">Everything You Need to Grow</h2>
-            <p className="mx-auto max-w-lg text-muted-foreground">Built for businesses that want to capture, qualify, and convert leads faster.</p>
+            <h2 className="mb-2 text-3xl font-bold text-foreground">{t("landing.why_title")}</h2>
+            <p className="mx-auto max-w-lg text-muted-foreground">{t("landing.why_desc")}</p>
           </div>
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-children">
             {[
-              { icon: MessageSquare, title: "Unified Inbox", desc: "Telegram, Email, WhatsApp, Website Chat — all in one place." },
-              { icon: Bot, title: "Dedicated AI", desc: "AI that knows your business and responds to customers automatically." },
-              { icon: BarChart3, title: "Smart Analytics", desc: "Track lead quality, response times, and conversion rates." },
-              { icon: Target, title: "Lead Discovery", desc: "AI monitors channels and discovers potential leads for you." },
-              { icon: Users, title: "CRM Pipeline", desc: "Full deal pipeline with stages, tasks, and activity tracking." },
-              { icon: Shield, title: "Competitor Intel", desc: "Monitor competitors and get strategic positioning insights." },
+              { icon: MessageSquare, title: t("landing.features.ai_title"), desc: t("landing.features.ai_desc") },
+              { icon: Bot, title: t("landing.features.crm_title"), desc: t("landing.features.crm_desc") },
+              { icon: BarChart3, title: t("landing.features.analytics_title"), desc: t("landing.features.analytics_desc") },
+              { icon: Target, title: t("landing.features.automation_title"), desc: t("landing.features.automation_desc") },
+              { icon: Users, title: t("landing.features.security_title"), desc: t("landing.features.security_desc") },
+              { icon: Shield, title: t("landing.features.telephony_title"), desc: t("landing.features.telephony_desc") },
               { icon: Sparkles, title: "Campaign Builder", desc: "AI-generated marketing campaigns with content strategy." },
               { icon: Phone, title: "Call Tracking", desc: "Log calls, get AI summaries, and track follow-ups." },
               { icon: Zap, title: "Automation Engine", desc: "Trigger workflows on lead events, messages, and more." },
@@ -223,8 +223,8 @@ const Index = () => {
         {/* Community Marquee */}
         <section className="border-t border-border bg-muted/20 py-16">
           <div className="mb-8 text-center animate-on-scroll">
-            <h2 className="mb-2 text-2xl font-bold text-foreground">Join Our Community of Successful Business Owners</h2>
-            <p className="text-muted-foreground">Thousands of businesses and freelancers growing together.</p>
+            <h2 className="mb-2 text-2xl font-bold text-foreground">{t("landing.community_title")}</h2>
+            <p className="text-muted-foreground">{t("landing.community_desc")}</p>
           </div>
 
           {/* Marquee Row 1 */}
@@ -260,7 +260,7 @@ const Index = () => {
           <div className="text-center animate-on-scroll">
             <Link to="/register">
               <Button size="lg" className="hover-lift">
-                Start Free Trial <ArrowRight className="ml-1 h-4 w-4" />
+                {t("landing.start_free")} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
           </div>
@@ -270,13 +270,13 @@ const Index = () => {
         <section className="border-t border-border relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5" />
           <div className="container relative mx-auto px-4 py-16 text-center animate-on-scroll">
-            <h2 className="mb-3 text-3xl font-bold text-foreground">Ready to Capture More Leads?</h2>
+            <h2 className="mb-3 text-3xl font-bold text-foreground">{t("landing.cta_title")}</h2>
             <p className="mx-auto mb-6 max-w-md text-muted-foreground">
-              Join businesses using Pulse AI to discover, qualify, and convert leads with AI.
+              {t("landing.cta_desc")}
             </p>
             <Link to="/register">
               <Button size="lg" className="hover-lift">
-                Start Free Trial <ArrowRight className="ml-1 h-4 w-4" />
+                {t("landing.cta_button")} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
           </div>
