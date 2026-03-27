@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { WorkspaceProvider } from "@/contexts/WorkspaceContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { ProtectedRoute, AdminProtectedPage } from "@/components/ProtectedRoute";
 import { ErrorBoundary, PageErrorFallback } from "@/components/ErrorBoundary";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 
@@ -147,8 +147,8 @@ const App = () => (
                 <Route path="/partner" element={<ProtectedPage><PartnerDashboard /></ProtectedPage>} />
                 <Route path="/security" element={<ProtectedPage><SessionSecurity /></ProtectedPage>} />
                 <Route path="/branding" element={<ProtectedPage><Branding /></ProtectedPage>} />
-                <Route path="/admin" element={<ProtectedPage><Admin /></ProtectedPage>} />
-                <Route path="/admin/businesses/:businessId/scan-insights" element={<ProtectedPage><AdminBusinessScanInsights /></ProtectedPage>} />
+                <Route path="/admin" element={<AdminProtectedPage><Admin /></AdminProtectedPage>} />
+                <Route path="/admin/businesses/:businessId/scan-insights" element={<AdminProtectedPage><AdminBusinessScanInsights /></AdminProtectedPage>} />
                 <Route path="/deep-analytics" element={<ProtectedPage><DeepAnalytics /></ProtectedPage>} />
                 <Route path="/public-api" element={<ProtectedPage><PublicApi /></ProtectedPage>} />
                 <Route path="/marketplace" element={<ProtectedPage><Marketplace /></ProtectedPage>} />
