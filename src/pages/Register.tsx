@@ -7,11 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/sonner";
-import { Mail, Lock, User, Zap, Building2, Briefcase, Check, ArrowLeft, ArrowRight } from "lucide-react";
+import { Mail, Lock, User, Zap, Building2, Briefcase, Check, ArrowLeft, ArrowRight, Megaphone } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { cn } from "@/lib/utils";
 
-type AccountType = "business" | "freelancer" | null;
+type AccountType = "business" | "freelancer" | "ambassador" | null;
 
 const PLAN_TIERS = [
   { key: "start", label: "Start", base: 49, highlighted: false },
@@ -52,8 +52,8 @@ const Register = () => {
       toast.error("Zgjidhni llojin e llogarisë");
       return;
     }
-    if (step === 1 && accountType === "freelancer") {
-      // Freelancers get free 7-day trial automatically
+    if (step === 1 && (accountType === "freelancer" || accountType === "ambassador")) {
+      // Freelancers & Ambassadors get free 7-day trial automatically
       setSelectedTier("start");
       setSelectedDuration("trial");
       setStep(3);
@@ -67,7 +67,7 @@ const Register = () => {
   };
 
   const handleBack = () => {
-    if (step === 3 && accountType === "freelancer") {
+    if (step === 3 && (accountType === "freelancer" || accountType === "ambassador")) {
       setStep(1);
       return;
     }
@@ -76,8 +76,10 @@ const Register = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.length < 6) {
-      toast.error("Fjalëkalimi duhet të jetë të paktën 6 karaktere");
+    // Validate password format: Aabc@.123
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]{3,})(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\.)(?=.*\d{3,}).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error("Formati i fjalëkalimit: Aabc@.123 (1 e madhe + 3 gërma + 1 simbol + 1 pikë + 3 numra)");
       return;
     }
     setLoading(true);
@@ -165,39 +167,58 @@ const Register = () => {
             {step === 1 && (
               <div className="space-y-4">
                 <Label>Lloji i llogarisë <span className="text-destructive">*</span></Label>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-3">
                   <button
                     type="button"
                     onClick={() => setAccountType("business")}
                     className={cn(
-                      "flex flex-col items-center gap-3 rounded-xl border-2 p-6 transition-all",
+                      "flex flex-col items-center gap-2 rounded-xl border-2 p-5 transition-all",
                       accountType === "business"
                         ? "border-primary bg-primary/5 text-primary"
                         : "border-border text-muted-foreground hover:border-primary/50"
                     )}
                   >
-                    <Building2 className="h-8 w-8" />
-                    <span className="font-semibold">Biznes</span>
-                    <span className="text-xs opacity-70 text-center">Kam një kompani dhe dua ta rris</span>
+                    <Building2 className="h-7 w-7" />
+                    <span className="font-semibold text-sm">Biznes</span>
+                    <span className="text-[10px] opacity-70 text-center leading-tight">Kam një kompani dhe dua ta rris</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setAccountType("freelancer")}
                     className={cn(
-                      "flex flex-col items-center gap-3 rounded-xl border-2 p-6 transition-all",
+                      "flex flex-col items-center gap-2 rounded-xl border-2 p-5 transition-all",
                       accountType === "freelancer"
                         ? "border-primary bg-primary/5 text-primary"
                         : "border-border text-muted-foreground hover:border-primary/50"
                     )}
                   >
-                    <Briefcase className="h-8 w-8" />
-                    <span className="font-semibold">Freelancer</span>
-                    <span className="text-xs opacity-70 text-center">Punoj i pavarur, dua të fitoj</span>
+                    <Briefcase className="h-7 w-7" />
+                    <span className="font-semibold text-sm">Freelancer</span>
+                    <span className="text-[10px] opacity-70 text-center leading-tight">Menaxhoj biznese dhe fitoj komisione</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAccountType("ambassador")}
+                    className={cn(
+                      "flex flex-col items-center gap-2 rounded-xl border-2 p-5 transition-all",
+                      accountType === "ambassador"
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-border text-muted-foreground hover:border-primary/50"
+                    )}
+                  >
+                    <Megaphone className="h-7 w-7" />
+                    <span className="font-semibold text-sm">Ambasador</span>
+                    <span className="text-[10px] opacity-70 text-center leading-tight">Referoj biznese dhe fitoj komisione (min 3/muaj)</span>
                   </button>
                 </div>
                 {accountType === "freelancer" && (
                   <p className="text-sm text-center text-muted-foreground bg-muted/50 rounded-lg p-3">
                     ✨ Freelancerët fillojnë me <span className="font-semibold text-primary">7 ditë provë falas</span> automatikisht!
+                  </p>
+                )}
+                {accountType === "ambassador" && (
+                  <p className="text-sm text-center text-muted-foreground bg-muted/50 rounded-lg p-3">
+                    🎯 Ambasadorët fitojnë komisione nga referimi i bizneseve — <span className="font-semibold text-primary">minimum 3 referime/muaj</span>
                   </p>
                 )}
               </div>
@@ -323,14 +344,17 @@ const Register = () => {
                   <Label htmlFor="password">Fjalëkalimi <span className="text-destructive">*</span></Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="password" type="password" placeholder="Min 6 karaktere" className="pl-9" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
+                    <Input id="password" type="password" placeholder="Formati: Aabc@.123" className="pl-9" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} />
                   </div>
+                  <p className="text-[10px] text-muted-foreground">Formati: 1 e madhe + 3 gërma + 1 simbol + 1 pikë + 3 numra (p.sh. Aabc@.123)</p>
                 </div>
 
                 {/* Plan summary in step 3 */}
                 <div className="rounded-lg bg-muted/50 p-3 text-sm">
                   <p className="text-muted-foreground">
-                    Llogaria: <span className="font-semibold text-foreground">{accountType === "business" ? "Biznes" : "Freelancer"}</span>
+                    Llogaria: <span className="font-semibold text-foreground">
+                      {accountType === "business" ? "Biznes" : accountType === "ambassador" ? "Ambasador" : "Freelancer"}
+                    </span>
                     {" • "}Plani: <span className="font-semibold text-foreground">{currentTier?.label || "Start"}</span>
                     {" • "}{DURATIONS.find(d => d.key === selectedDuration)?.label || "7-ditore Provë"}
                   </p>
