@@ -105,28 +105,28 @@ const Index = () => {
         <section className="border-t border-border bg-muted/30">
           <div className="container mx-auto px-4 py-16">
             <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
-              <div className="animate-on-scroll">
-                <Badge variant="destructive" className="mb-3">The Problem</Badge>
+              <div className="animate-on-scroll is-visible">
+                <Badge variant="destructive" className="mb-3">{t("landing.problem_badge")}</Badge>
                 <h2 className="mb-3 text-2xl font-bold text-foreground">
-                  Leads Slip Through the Cracks
+                  {t("landing.problem_title")}
                 </h2>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> Scattered conversations across channels</li>
-                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> Slow response times lose deals</li>
-                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> No visibility into lead quality or intent</li>
-                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> Manual follow-ups don't scale</li>
+                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> {t("landing.problem_1")}</li>
+                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> {t("landing.problem_2")}</li>
+                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> {t("landing.problem_3")}</li>
+                  <li className="flex items-start gap-2"><span className="mt-0.5 text-destructive">✕</span> {t("landing.problem_4")}</li>
                 </ul>
               </div>
-              <div className="animate-on-scroll" style={{ transitionDelay: "150ms" }}>
-                <Badge className="mb-3">The Solution</Badge>
+              <div className="animate-on-scroll is-visible">
+                <Badge className="mb-3">{t("landing.solution_badge")}</Badge>
                 <h2 className="mb-3 text-2xl font-bold text-foreground">
-                  One Platform. Full Control.
+                  {t("landing.solution_title")}
                 </h2>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Unified inbox for all channels</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> AI analyzes and scores every lead</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Automated responses in your brand voice</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> CRM pipeline tracks every deal</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {t("landing.solution_1")}</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {t("landing.solution_2")}</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {t("landing.solution_3")}</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {t("landing.solution_4")}</li>
                 </ul>
               </div>
             </div>
@@ -135,11 +135,11 @@ const Index = () => {
 
         {/* Features Grid */}
         <section className="container mx-auto px-4 py-16">
-          <div className="mb-12 text-center animate-on-scroll">
+          <div className="mb-12 text-center animate-on-scroll is-visible">
             <h2 className="mb-2 text-3xl font-bold text-foreground">{t("landing.why_title")}</h2>
             <p className="mx-auto max-w-lg text-muted-foreground">{t("landing.why_desc")}</p>
           </div>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-children">
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-children is-visible">
             {[
               { icon: MessageSquare, title: t("landing.features.ai_title"), desc: t("landing.features.ai_desc") },
               { icon: Bot, title: t("landing.features.crm_title"), desc: t("landing.features.crm_desc") },
@@ -147,9 +147,9 @@ const Index = () => {
               { icon: Target, title: t("landing.features.automation_title"), desc: t("landing.features.automation_desc") },
               { icon: Users, title: t("landing.features.security_title"), desc: t("landing.features.security_desc") },
               { icon: Shield, title: t("landing.features.telephony_title"), desc: t("landing.features.telephony_desc") },
-              { icon: Sparkles, title: "Campaign Builder", desc: "AI-generated marketing campaigns with content strategy." },
-              { icon: Phone, title: "Call Tracking", desc: "Log calls, get AI summaries, and track follow-ups." },
-              { icon: Zap, title: "Automation Engine", desc: "Trigger workflows on lead events, messages, and more." },
+              { icon: Sparkles, title: t("landing.features.campaigns_title"), desc: t("landing.features.campaigns_desc") },
+              { icon: Phone, title: t("landing.features.calls_title"), desc: t("landing.features.calls_desc") },
+              { icon: Zap, title: t("landing.features.engine_title"), desc: t("landing.features.engine_desc") },
             ].map((f) => (
               <div key={f.title} className="rounded-xl border border-border p-6 hover-lift card-glow">
                 <f.icon className="mb-3 h-8 w-8 text-primary" />
@@ -167,15 +167,15 @@ const Index = () => {
         {/* Pricing Preview */}
         <section className="border-t border-border bg-muted/30">
           <div className="container mx-auto px-4 py-16 text-center">
-            <div className="animate-on-scroll">
-              <h2 className="mb-2 text-3xl font-bold text-foreground">Live Pricing From the Product Catalog</h2>
-              <p className="mb-8 text-muted-foreground">Plans, labels, and pricing stay aligned with the backend.</p>
+            <div className="animate-on-scroll is-visible">
+              <h2 className="mb-2 text-3xl font-bold text-foreground">{t("landing.pricing_title")}</h2>
+              <p className="mb-8 text-muted-foreground">{t("landing.pricing_desc")}</p>
             </div>
-            <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4 stagger-children">
+            <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4 stagger-children is-visible">
               {plans.slice(0, 4).map((plan) => (
                 <Card key={plan.key} className={`hover-lift card-glow ${plan.highlighted ? "border-primary ring-1 ring-primary" : ""}`}>
                   <CardContent className="pt-6 text-center">
-                    {plan.highlighted && <Badge className="mb-2">Recommended</Badge>}
+                    {plan.highlighted && <Badge className="mb-2">{t("landing.recommended")}</Badge>}
                     <h3 className="font-semibold text-foreground">{plan.name}</h3>
                     <p className="my-1 text-2xl font-bold text-foreground">{plan.key === "enterprise" ? "Custom" : `€${plan.monthlyPrice}`}</p>
                     <p className="mb-3 text-xs text-muted-foreground">{plan.description}</p>
@@ -184,7 +184,7 @@ const Index = () => {
               ))}
             </div>
             <Link to="/pricing">
-              <Button variant="outline" className="mt-6 hover-lift">Compare Plans <ArrowRight className="ml-1 h-4 w-4" /></Button>
+              <Button variant="outline" className="mt-6 hover-lift">{t("landing.compare_plans")} <ArrowRight className="ml-1 h-4 w-4" /></Button>
             </Link>
           </div>
         </section>
@@ -193,25 +193,25 @@ const Index = () => {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-background to-primary/5" />
           <div className="container relative mx-auto px-4 py-16">
-            <div className="mb-10 text-center animate-on-scroll">
-              <h2 className="mb-2 text-3xl font-bold text-foreground">Trusted by Growing Businesses</h2>
-              <p className="text-muted-foreground">See what our customers say.</p>
+            <div className="mb-10 text-center animate-on-scroll is-visible">
+              <h2 className="mb-2 text-3xl font-bold text-foreground">{t("landing.testimonials_title")}</h2>
+              <p className="text-muted-foreground">{t("landing.testimonials_desc")}</p>
             </div>
-            <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3 stagger-children">
+            <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3 stagger-children is-visible">
               {[
-                { name: "Sarah K.", role: "Marketing Director", quote: "Pulse AI transformed how we handle inbound leads. Response times dropped by 80%." },
-                { name: "Michael R.", role: "Agency Owner", quote: "The AI assistant feels like a team member. It handles initial conversations perfectly." },
-                { name: "Elena T.", role: "Sales Manager", quote: "We discovered 3x more qualified leads within the first month of using the platform." },
-              ].map((t) => (
-                <Card key={t.name} className="hover-lift card-glow">
+                { name: "Sarah K.", role: t("landing.testimonial_role_1"), quote: t("landing.testimonial_quote_1") },
+                { name: "Michael R.", role: t("landing.testimonial_role_2"), quote: t("landing.testimonial_quote_2") },
+                { name: "Elena T.", role: t("landing.testimonial_role_3"), quote: t("landing.testimonial_quote_3") },
+              ].map((item) => (
+                <Card key={item.name} className="hover-lift card-glow">
                   <CardContent className="pt-6">
                     <div className="mb-3 flex gap-0.5">
                       {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary text-primary" />)}
                     </div>
-                    <p className="mb-4 text-sm italic text-muted-foreground">"{t.quote}"</p>
+                    <p className="mb-4 text-sm italic text-muted-foreground">"{item.quote}"</p>
                     <div>
-                      <p className="text-sm font-medium text-foreground">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.role}</p>
+                      <p className="text-sm font-medium text-foreground">{item.name}</p>
+                      <p className="text-xs text-muted-foreground">{item.role}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -222,7 +222,7 @@ const Index = () => {
 
         {/* Community Marquee */}
         <section className="border-t border-border bg-muted/20 py-16">
-          <div className="mb-8 text-center animate-on-scroll">
+          <div className="mb-8 text-center animate-on-scroll is-visible">
             <h2 className="mb-2 text-2xl font-bold text-foreground">{t("landing.community_title")}</h2>
             <p className="text-muted-foreground">{t("landing.community_desc")}</p>
           </div>
@@ -257,7 +257,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="text-center animate-on-scroll">
+          <div className="text-center animate-on-scroll is-visible">
             <Link to="/register">
               <Button size="lg" className="hover-lift">
                 {t("landing.start_free")} <ArrowRight className="ml-1 h-4 w-4" />
@@ -269,7 +269,7 @@ const Index = () => {
         {/* Final CTA */}
         <section className="border-t border-border relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5" />
-          <div className="container relative mx-auto px-4 py-16 text-center animate-on-scroll">
+          <div className="container relative mx-auto px-4 py-16 text-center animate-on-scroll is-visible">
             <h2 className="mb-3 text-3xl font-bold text-foreground">{t("landing.cta_title")}</h2>
             <p className="mx-auto mb-6 max-w-md text-muted-foreground">
               {t("landing.cta_desc")}
