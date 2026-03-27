@@ -15,6 +15,13 @@ i18n
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
     },
+    // All 30 languages use English as fallback until translations are added
+    supportedLngs: [
+      "en", "sq", "de", "fr", "es", "it", "pt", "nl", "pl", "ro",
+      "cs", "hu", "sv", "no", "da", "fi", "el", "bg", "hr", "sr",
+      "mk", "tr", "ar", "zh", "ja", "ko", "hi", "ru", "uk", "vi",
+    ],
+    nonExplicitSupportedLngs: false,
   });
 
 export default i18n;
