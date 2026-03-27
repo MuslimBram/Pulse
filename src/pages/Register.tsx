@@ -14,15 +14,15 @@ import { cn } from "@/lib/utils";
 type AccountType = "business" | "freelancer" | null;
 
 const PLAN_TIERS = [
-  { key: "start", label: "Start", base: 49 },
+  { key: "start", label: "Start", base: 49, highlighted: false },
   { key: "growth", label: "Growth", base: 99, highlighted: true },
-  { key: "pro", label: "Pro", base: 199 },
-  { key: "enterprise", label: "Enterprise", base: 399 },
+  { key: "pro", label: "Pro", base: 199, highlighted: false },
+  { key: "enterprise", label: "Enterprise", base: 399, highlighted: false },
 ] as const;
 
 const DURATIONS = [
   { key: "trial", label: "7-ditore Provë", months: 0, discount: 0, badge: "Falas" },
-  { key: "monthly", label: "Mujore", months: 1, discount: 0 },
+  { key: "monthly", label: "Mujore", months: 1, discount: 0, badge: "" },
   { key: "3-month", label: "3 Muaj", months: 3, discount: 5, badge: "Kurseni 5%" },
   { key: "6-month", label: "6 Muaj", months: 6, discount: 10, badge: "Kurseni 10%" },
   { key: "yearly", label: "Vjetore", months: 12, discount: 15, badge: "Kurseni 15%" },
