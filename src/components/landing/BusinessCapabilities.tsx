@@ -91,6 +91,7 @@ export const BusinessCapabilities = () => {
       <div className="container mx-auto px-4 py-20">
         <div className="mb-12 text-center animate-on-scroll">
           <Badge className="mb-3 text-sm">For Businesses</Badge>
+
           <h2 className="mb-3 text-3xl font-bold text-foreground md:text-4xl">
             Everything a Business Needs to Grow
           </h2>
