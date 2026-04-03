@@ -89,7 +89,7 @@ export const BusinessCapabilities = () => {
   return (
     <section className="border-t border-border bg-muted/30" ref={scrollRef}>
       <div className="container mx-auto px-4 py-20">
-        <div className="mb-12 text-center animate-on-scroll">
+        <div className="mb-12 text-center animate-on-scroll is-visible">
           <Badge className="mb-3 text-sm">For Businesses</Badge>
           <h2 className="mb-3 text-3xl font-bold text-foreground md:text-4xl">
             Everything a Business Needs to Grow
@@ -99,7 +99,7 @@ export const BusinessCapabilities = () => {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 stagger-children">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 stagger-children is-visible">
           {CAPABILITIES.map((cap) => (
             <Card key={cap.title} className="group hover-lift card-glow">
               <CardContent className="pt-6">
