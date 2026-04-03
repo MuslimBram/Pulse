@@ -111,7 +111,7 @@ export const CompetitorComparison = () => {
   return (
     <section className="border-t border-border bg-muted/20" ref={scrollRef}>
       <div className="container mx-auto px-4 py-16">
-        <div className="mb-10 text-center animate-on-scroll">
+        <div className="mb-10 text-center animate-on-scroll is-visible">
           <Badge variant="secondary" className="mb-3">Krahasimi</Badge>
           <h2 className="mb-2 text-3xl font-bold text-foreground">
             Pulse AI vs Konkurentët
@@ -121,7 +121,7 @@ export const CompetitorComparison = () => {
           </p>
         </div>
 
-        <div className="mx-auto max-w-6xl overflow-x-auto animate-on-scroll" style={{ transitionDelay: "150ms" }}>
+        <div className="mx-auto max-w-6xl overflow-x-auto animate-on-scroll is-visible" style={{ transitionDelay: "150ms" }}>
           <table className="w-full min-w-[700px] text-sm">
             <thead>
               <tr className="border-b border-border">
