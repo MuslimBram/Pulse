@@ -136,6 +136,11 @@ const Register = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
+      <Seo
+        title="Create Account — Pulse AI Free 7-Day Trial"
+        description="Sign up for Pulse AI in 3 steps. Freelancers get a free 7-day trial; businesses pick from Start €49, Growth €99, PRO €199, or Enterprise €399 plans."
+        path="/register"
+      />
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
