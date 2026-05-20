@@ -9,6 +9,7 @@ import { toast } from "@/components/ui/sonner";
 import { Mail, Lock, Zap, ShieldCheck, Loader2, RefreshCw, Smartphone, AlertTriangle } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/contexts/AuthContext";
+import { Seo } from "@/components/Seo";
 
 type TwoFAMethod = "choose" | "authenticator" | "authenticator_enroll" | "email";
 
