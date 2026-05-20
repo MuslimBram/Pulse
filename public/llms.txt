@@ -1,0 +1,14 @@
+# Pulse AI
+
+> Pulse AI is the intelligent business platform — AI-powered CRM, omnichannel inbox, marketing automation, and analytics that help businesses manage, automate, and grow.
+
+## Pages
+
+- [Home](/): Overview of Pulse AI features, capabilities for businesses and freelancers, and platform comparison.
+- [Pricing](/pricing): Subscription plans (Start €49, Growth €99, PRO €199, Enterprise €399) with monthly, quarterly, semi-annual, and yearly billing — plus a 7-day free trial.
+- [Sign Up](/register): Create an account in 3 steps (account type → plan → details). Freelancers get a free 7-day trial.
+- [Sign In](/login): Existing-user login with 2FA support.
+
+## Optional
+
+- [Forgot Password](/forgot-password): Password reset flow.
