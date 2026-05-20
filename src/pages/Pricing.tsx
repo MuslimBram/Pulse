@@ -20,6 +20,7 @@ import { toast } from "@/components/ui/sonner";
 import { Building2, Heart, Loader2, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { getPlanChangeIntent } from "@/components/pricing/pricing-utils";
 import type { PackageVariant, PlanKey } from "@/types/monetization";
+import { Seo } from "@/components/Seo";
 
 const Pricing = () => {
   const navigate = useNavigate();
