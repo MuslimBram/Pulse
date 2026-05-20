@@ -10,6 +10,7 @@ import { toast } from "@/components/ui/sonner";
 import { Mail, Lock, User, Zap, Building2, Briefcase, Check, ArrowLeft, ArrowRight, Megaphone } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { cn } from "@/lib/utils";
+import { Seo } from "@/components/Seo";
 
 type AccountType = "business" | "freelancer" | "ambassador" | null;
 
