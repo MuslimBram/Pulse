@@ -9,6 +9,7 @@ import { toast } from "@/components/ui/sonner";
 import { Mail, Lock, Zap, ShieldCheck, Loader2, RefreshCw, Smartphone, AlertTriangle } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/contexts/AuthContext";
+import { Seo } from "@/components/Seo";
 
 type TwoFAMethod = "choose" | "authenticator" | "authenticator_enroll" | "email";
 
@@ -401,6 +402,11 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <Seo
+        title="Sign In — Pulse AI"
+        description="Sign in to your Pulse AI account to access your CRM, inbox, automations, and analytics dashboard."
+        path="/login"
+      />
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">

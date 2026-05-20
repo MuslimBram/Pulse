@@ -20,6 +20,7 @@ import { toast } from "@/components/ui/sonner";
 import { Building2, Heart, Loader2, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { getPlanChangeIntent } from "@/components/pricing/pricing-utils";
 import type { PackageVariant, PlanKey } from "@/types/monetization";
+import { Seo } from "@/components/Seo";
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -162,6 +163,24 @@ const Pricing = () => {
 
   return (
     <DashboardLayout>
+      <Seo
+        title="Pricing — Pulse AI Plans: Start, Growth, PRO & Enterprise"
+        description="Transparent pricing for Pulse AI. Start from €49/mo, Growth €99, PRO €199, Enterprise €399. Save up to 15% with quarterly, semi-annual, or yearly billing. 7-day free trial."
+        path="/pricing"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Pulse AI",
+          description: "AI business automation platform with CRM, omnichannel inbox, marketing automation, and analytics.",
+          brand: { "@type": "Brand", name: "Pulse AI" },
+          offers: [
+            { "@type": "Offer", name: "Start", price: "49", priceCurrency: "EUR", url: "https://pulset.lovable.app/pricing" },
+            { "@type": "Offer", name: "Growth", price: "99", priceCurrency: "EUR", url: "https://pulset.lovable.app/pricing" },
+            { "@type": "Offer", name: "PRO", price: "199", priceCurrency: "EUR", url: "https://pulset.lovable.app/pricing" },
+            { "@type": "Offer", name: "Enterprise", price: "399", priceCurrency: "EUR", url: "https://pulset.lovable.app/pricing" },
+          ],
+        }}
+      />
       <div className="space-y-8 pb-6">
         <section className="overflow-hidden rounded-[2rem] border border-border/60 bg-gradient-to-br from-background via-muted/20 to-primary/10">
           <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-12 lg:py-14">

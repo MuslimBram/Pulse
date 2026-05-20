@@ -15,6 +15,7 @@ import {
 import { BusinessCapabilities } from "@/components/landing/BusinessCapabilities";
 import { FreelancerCapabilities } from "@/components/landing/FreelancerCapabilities";
 import { CompetitorComparison } from "@/components/landing/CompetitorComparison";
+import { Seo } from "@/components/Seo";
 
 const COMMUNITY_PHOTOS = [
   "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=120&h=120&fit=crop&crop=face",
@@ -51,6 +52,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background" ref={scrollRef}>
+      <Seo
+        title="Pulse AI — AI Business Automation, CRM & Analytics"
+        description="The intelligent business platform: AI CRM, omnichannel inbox, marketing automation, and analytics to manage, automate, and grow your business."
+        path="/"
+        jsonLd={[
+          { "@context": "https://schema.org", "@type": "Organization", name: "Pulse AI", url: "https://pulset.lovable.app", logo: "https://pulset.lovable.app/pwa/icon-512.png" },
+          { "@context": "https://schema.org", "@type": "WebSite", name: "Pulse AI", url: "https://pulset.lovable.app" },
+        ]}
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
