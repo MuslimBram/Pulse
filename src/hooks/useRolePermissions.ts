@@ -15,6 +15,28 @@ export type AppRole =
   | "agent"
   | "freelancer";
 
+/**
+ * Public role labels used by the UI.
+ * Internal role keys remain stable for backwards compatibility and database RLS.
+ *
+ * super_admin = Owner (Pulse AI)
+ * admin       = Admin (Pulse AI)
+ * business_owner = Admin (Business)
+ */
+export const ROLE_LABELS: Record<AppRole, string> = {
+  super_admin: "Owner",
+  admin: "Pulse AI Admin",
+  business_owner: "Business Admin",
+  controller: "Controller",
+  worker: "Worker",
+  user: "User",
+  moderator: "Moderator",
+  partner: "Partner",
+  business_manager: "Business Manager",
+  agent: "AI Agent",
+  freelancer: "Freelancer",
+};
+
 export interface RolePermissions {
   canCreateAdmin: boolean;
   canCreateController: boolean;
@@ -70,31 +92,14 @@ const BASE_PERMISSIONS: RolePermissions = {
 };
 
 const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
+  // Owner: complete Pulse AI platform access.
+  // Sensitive business credential actions should still execute server-side.
   super_admin: {
     ...BASE_PERMISSIONS,
     canCreateAdmin: true,
     canCreateController: true,
     canCreateWorker: true,
-    canReviewBusinesses: true,
-    canApprovePayouts: true,
-    canManageCommissions: true,
-    canViewAllWorkspaces: true,
-    canSuspendUsers: true,
-    canChangePlans: true,
-    bypassSubscription: true,
-    bypassFeatureGating: true,
-    bypassUsageLimits: true,
-    canViewCRM: true,
-    canViewAnalytics: true,
-    canMonitorConnections: true,
-    // NOTE: super_admin must NOT connect channels on behalf of businesses
-    canConnectChannels: false,
-  },
-  admin: {
-    ...BASE_PERMISSIONS,
-    canCreateAdmin: true,
-    canCreateController: true,
-    canCreateWorker: true,
+    canRegisterBusiness: true,
     canReviewBusinesses: true,
     canApprovePayouts: true,
     canManageCommissions: true,
@@ -114,6 +119,36 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     canConfigureAutomations: true,
     canMonitorConnections: true,
   },
+
+  // Pulse AI Admin: platform operations and business oversight, but cannot
+  // create or elevate another Pulse AI Admin. Business provisioning is still
+  // subject to the AI + second-admin approval workflow.
+  admin: {
+    ...BASE_PERMISSIONS,
+    canCreateAdmin: false,
+    canCreateController: true,
+    canCreateWorker: true,
+    canRegisterBusiness: true,
+    canReviewBusinesses: true,
+    canApprovePayouts: true,
+    canManageCommissions: true,
+    canViewAllWorkspaces: true,
+    canSuspendUsers: true,
+    canChangePlans: true,
+    bypassSubscription: true,
+    bypassFeatureGating: true,
+    bypassUsageLimits: true,
+    canConnectChannels: true,
+    canManageIntegrations: true,
+    canManageTeam: true,
+    canViewCRM: true,
+    canManageCampaigns: true,
+    canRespondInbox: true,
+    canViewAnalytics: true,
+    canConfigureAutomations: true,
+    canMonitorConnections: true,
+  },
+
   controller: {
     ...BASE_PERMISSIONS,
     canReviewBusinesses: true,
@@ -130,6 +165,9 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     canReviewBusinesses: true,
     canRespondInbox: true,
   },
+
+  // Business Admin: full operational control inside the business workspace,
+  // including billing/integrations for that business, but no global platform access.
   business_owner: {
     ...BASE_PERMISSIONS,
     canRegisterBusiness: true,
@@ -155,7 +193,6 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     canViewAnalytics: true,
     canConfigureAutomations: true,
     canManageTeam: true,
-    // Cannot change billing or core integrations
     canAccessBilling: false,
     canConnectChannels: false,
     canManageIntegrations: false,
@@ -164,7 +201,6 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     ...BASE_PERMISSIONS,
     canRespondInbox: true,
     canViewCRM: true,
-    // Cannot access billing, integrations, pricing, or create campaigns
     canAccessBilling: false,
     canConnectChannels: false,
     canManageIntegrations: false,
@@ -180,7 +216,6 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     canViewAnalytics: true,
     canConfigureAutomations: true,
     canRegisterBusiness: true,
-    // Cannot see other businesses or change global settings
     canViewAllWorkspaces: false,
     canChangePlans: false,
   },
@@ -190,7 +225,6 @@ const ROLE_PERMISSIONS: Record<AppRole, RolePermissions> = {
     canAccessBilling: true,
     canCreateReferralLinks: true,
     canViewAnalytics: true,
-    // Cannot control business internal operations
     canConnectChannels: false,
     canManageIntegrations: false,
   },
@@ -232,20 +266,35 @@ export const useRolePermissions = () => {
   );
 
   const hasRole = (role: AppRole) => roles.includes(role);
-  const isAdmin = hasRole("admin") || hasRole("super_admin");
-  const isSuperAdmin = hasRole("super_admin");
+  const isOwner = hasRole("super_admin");
+  const isPlatformAdmin = hasRole("admin");
+  const isAdmin = isOwner || isPlatformAdmin;
+  const isSuperAdmin = isOwner;
   const isController = hasRole("controller");
   const isWorker = hasRole("worker");
   const isFreelancer = hasRole("freelancer");
   const isBusinessOwner = hasRole("business_owner");
   const isBusinessManager = hasRole("business_manager");
   const isAgent = hasRole("agent");
-  const isSystemRole = isAdmin || isSuperAdmin;
+  const isSystemRole = isAdmin;
+
+  const getRoleLabel = (role: AppRole) => ROLE_LABELS[role] || role;
+  const primaryRole = isOwner
+    ? "super_admin"
+    : isPlatformAdmin
+      ? "admin"
+      : isBusinessOwner
+        ? "business_owner"
+        : roles[0] || "user";
 
   return {
     roles,
     permissions,
     hasRole,
+    getRoleLabel,
+    primaryRole,
+    isOwner,
+    isPlatformAdmin,
     isAdmin,
     isSuperAdmin,
     isController,
