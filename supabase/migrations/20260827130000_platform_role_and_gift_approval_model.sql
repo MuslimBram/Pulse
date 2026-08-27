@@ -16,6 +16,7 @@ where status in ('pending_ai_check', 'pending_approval', 'approved')
   and approvals_required = 7;
 
 drop policy if exists owner_create_gifts on public.gift_subscription_requests;
+drop policy if exists admin_create_lifetime_gifts on public.gift_subscription_requests;
 
 create policy owner_create_gifts
 on public.gift_subscription_requests
