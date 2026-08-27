@@ -7,6 +7,10 @@ export interface ChannelData {
   channel_type: string;
   channel_name: string;
   settings?: Record<string, unknown>;
+  workspace_id?: string;
+  connection_mode?: string;
+  account_type?: string;
+  capabilities?: string[];
 }
 
 export const useChannels = () => {
@@ -18,7 +22,9 @@ export const useChannels = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("channels")
-        .select("*")
+        // Never expose provider credentials/settings to the browser. Secrets are
+        // stored in credentials_encrypted and are only read by server functions.
+        .select("id,workspace_id,user_id,channel_type,channel_name,is_enabled,connection_status,connection_mode,account_type,capabilities,provider_metadata,created_at,updated_at,last_error")
         .eq("user_id", user!.id)
         .order("created_at", { ascending: false });
       if (error) throw error;
@@ -29,7 +35,6 @@ export const useChannels = () => {
 
   const addChannel = useMutation({
     mutationFn: async (channel: ChannelData) => {
-      // Server-side limit enforcement
       const { data: limitCheck, error: limitError } = await supabase.functions.invoke("enforce-limits", {
         body: { action: "add", resource: "channels" },
       });
@@ -38,18 +43,40 @@ export const useChannels = () => {
         throw new Error(limitCheck.error || "Channel limit reached. Please upgrade your plan.");
       }
 
-      const row = {
-        channel_type: channel.channel_type,
-        channel_name: channel.channel_name,
-        settings: (channel.settings ?? {}) as any,
-        user_id: user!.id,
-      };
-      const { error } = await supabase.from("channels").insert([row]);
-      if (error) throw error;
+      // Resolve the workspace server-side. We send only the credential payload
+      // to save-channel-credentials; it encrypts sensitive values before storage.
+      let workspaceId = channel.workspace_id;
+      if (!workspaceId) {
+        const { data: membership, error: membershipError } = await supabase
+          .from("workspace_members")
+          .select("workspace_id")
+          .eq("user_id", user!.id)
+          .order("created_at", { ascending: true })
+          .limit(1)
+          .maybeSingle();
+        if (membershipError) throw membershipError;
+        workspaceId = membership?.workspace_id || user!.id;
+      }
+
+      const { data, error } = await supabase.functions.invoke("save-channel-credentials", {
+        body: {
+          action: "save_generic",
+          workspace_id: workspaceId,
+          channel_type: channel.channel_type,
+          channel_name: channel.channel_name,
+          settings: channel.settings ?? {},
+          connection_mode: channel.connection_mode ?? "professional",
+          account_type: channel.account_type ?? "unknown",
+          capabilities: channel.capabilities ?? [],
+          provider_metadata: {},
+        },
+      });
+      if (error) throw new Error(error.message || "Failed to save channel securely");
+      if (!data?.ok) throw new Error(data?.error || "Failed to save channel securely");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["channels"] });
-      toast.success("Channel added");
+      toast.success("Channel added securely");
     },
     onError: (e) => toast.error(e.message),
   });
